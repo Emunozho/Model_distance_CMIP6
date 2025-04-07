@@ -134,10 +134,10 @@ Inferences in Earth system science rely to a large degree on the numerical outpu
 \introduction  %% \introduction[modified heading if necessary]
 Inferences in Earth system science (ESS) depend to a large extent on the output from Earth system models (ESMs) that combine different components of the carbon, water, and energy balance of Earth and make spatial and temporal predictions of a large number of variables of scientific interest. These models are relatively large and transcend specific knowledge of single disciplines. Multiple modeling groups run large simulations and participate in coordinated Model Intercomparison Projects (MIP), where the forcings to the model are similar and the outputs across models are comparable \citep{Eyring2016}. For making inferences about a particular aspect of the dynamics of the Earth system, one is confronted with the problem of what model to analyze, how to assign a degree of belief to the results of a certain model, and how to perform averaging across models to obtain an unbiased estimator of some variable of interest \citep{Hagedorn2005, Knutti2010CC, Knutti2010JC, Hausfather2022, Tebaldi2007}. 
 
-These problems are not new to science, and a lot of previous work has been done in the fields of information theory and statistics to address some of these issues. In particular, the problem of model selection and multimodel inference in statistics, where the idea is to fit multiple models to observed data, is relatively well developed \citep{Anderson2007, Burnham2002, Millington2011, Claeskens2008}. However, classical multi-model inference methods have been developed mostly for simple statistical models, usually expressed as polynomial functions, and not for dynamical models that recursively update a large set of state variables based on a dynamical rule as in ESMs. Therefore, there is a need to expand the existing theory of multi-model inference to the large-dimensional models used in Earth system science.
+These problems are not new to science, and a lot of previous work has been done in the fields of information theory and statistics to address some of these issues. In particular, the problem of model selection and multi-model inference in statistics, where the idea is to fit multiple models to observed data, is relatively well developed \citep{Anderson2007, Burnham2002, Millington2011, Claeskens2008}. However, classical multi-model inference methods have been developed mostly for simple statistical models, usually expressed as polynomial functions, and not for dynamical models that recursively update a large set of state variables based on a dynamical rule as in ESMs. Therefore, there is a need to expand the existing theory of multi-model inference to the large-dimensional models used in Earth system science.
 
 Three main challenges emerge when trying to expand statistical methods of multi-model inference to ESMs. First, ESMs are not parameterized using statistical techniques such as maximum likelihood estimation (MLE) for the entire set of parameters of the model, which may vary spatially depending on the process being represented. Hirotugu Akaike showed in his seminal work that a measure of distance among models can be obtained with the log-likelihood estimate of the model with respect to an observational set \citep{Akaike1974, Akaike1981}. Thus, the challenge is to find a way to obtain a distance metric that does not rely on MLE methods. This is particularly important for ESMs because model uncertainty not only includes parameter uncertainty but also uncertainty due to initial states and boundary conditions \citep{Tebaldi2007}.
-A second challenge is that the total number of parameters in a given ESM is usually unknown to the user of ESM numerical output. The classical statistical theory tends to assign penalties to models according to their number of parameters, but this is practically impossible for published output from ESMs because there is no consistent reporting of the type and number of parameters, and whether they were obtained by an optimization method or agnostically inputted. Thus, the classical theory needs to be modified by an approach that disregards model complexity and does not add a penalty for it. 
+A second challenge is that the total number of parameters in a given ESM is usually unknown to the user of ESM numerical output. The classical statistical theory assigns penalties to models according to their number of parameters, but this is practically impossible for published output from ESMs because there is no consistent reporting of the type and number of parameters, and whether they were obtained by an optimization method or agnostically inputted. Thus, the classical theory needs to be modified by an approach that disregards model complexity and does not add a penalty for it. 
 A third challenge is the high-dimensionality of the problem of multi-model inference with ESMs. While the classical theory usually considers one predicted variable and a small set of explanatory variables linked by a polynomial function, the problem in ESS is to obtain expected values of a large set of state variables reported in a multi-dimensional lattice (geographical coordinates, time, and height or depth). 
 
 In this article, we propose an adaptation of the classical statistical theory of multi-model inference addressing the challenges of lack of MLE, unknown parameter space, and high dimensionality. We explicitly deal with the problem of model averaging following the conceptual approach described by \citet{Burnham2002}, which builds on the work developed by H. Akaike in the 1970s and 80s \citep{Parzen1998}.
@@ -227,12 +227,12 @@ w_i = \frac{\exp (-\frac{\Delta_i}{n})}{\sum_{r=1}^k \exp(- \frac{\Delta_r}{n})}
 \end{equation}
 Note that $\sum w_i =1$. 
 With these weights, we can now proceed to compute averages of model predictions according to our strength of belief in the predictions of each model. 
-For a variable of interest $x$, the multimodel mean is simply
+For a variable of interest $x$, the multi-model average is simply
 \begin{equation}
 \bar{x} = \sum_{i=1}^k w_i \cdot x_i.
 \end{equation}
 
-The estimate of uncertainty of this weighted mean $\bar{x}$ would have to incorporate two components, a variance due to inter-model variability, and a variance of each model with respect to the available data $y$. Thus,
+The estimate of uncertainty of this weighted average $\bar{x}$ would have to incorporate two components, a variance due to inter-model variability, and a variance of each model with respect to the available data $y$. Thus,
 \begin{equation}
 \sigma_{\bar{x}}^2 =  \sum_{i=1}^k w_i \left[ (x_i -\bar{x})^2 + (x_i - y)^2 \right] .
 \end{equation}
@@ -240,7 +240,6 @@ A note of caution. The last term of this equation needs to be specified more pre
 
 \section{Implementation with ESM output and gridded data products}
 Most numerical output from an ESM is indexed along three coordinate axes, one for time, and two for spatial coordinates. Because the spatial coordinates can be simplified to just one coordinate if we know the mapping from a one-dimensional index to a two-dimensional coordinate space, we define $s$ as the spatial coordinate, and $t$ as the time coordinate. We also define $i$ as the indexing for the models in the set of all considered ESMs. Given these definitions, we consider a model variable $x$ available from one single model for one single grid cell at one point in time as $x_{i, s, t}$. Similarly, we assume that we have a comparable variable derived from observations $y$ from a specific data product $j$ for one grid cell $s$ and one time point $t$ and denote it by $y_{j, s, t}$. The residual for each grid cell and each time point between model $i$ and data product $j$ is given by
-
 \begin{equation}
 \epsilon_{i-j, s, t}^2 =  (x_{i, s, t} - y_{j, s, t})^2.
 \end{equation}
@@ -322,21 +321,21 @@ For ranking model performance a relative measure such as $\Delta$ (Figures~\ref{
 %\textcolor{blue}{The considerable difference between the NEP and the NBP reference is also evident for the weights of each model (Figures~\ref{fig:wFluxcom} and \ref{fig:wCarboScope}), demonstrating that model weights may change substantially depending on the observational product being used as a reference.}
 The weights obtained for each model provide a relative ranking of the models with respect to their distance to the observational product, and serve as a suitable metric to assess model performance. 
 The values obtained differed considerably between the NEP and the NBP reference (Figures~\ref{fig:wFluxcom} and \ref{fig:wCarboScope}), which shows that model weights may change substantially depending on the observational product being used as a reference.
-Furthermore, for each model, it is clear that there are regions that perform better or worse than others in comparison to the observation-based product. For example, the MPI-ESM1-2-LR model performs consistently poorly in the Amazon region, in tropical Africa and North America, but performs relatively well in Europe and northern Eurasia. Other models also show consistent spatial patterns of good or poor performance, indicating that the weights do not capture randomly spaced grid-cells, but aggregated regions where the models tend to perform consistently in either direction with respect to the observations. 
+Furthermore, for each model, it is clear that there are regions that perform better or worse than others in comparison to the observational product. For example, the MPI-ESM1-2-LR model performs consistently poorly in the Amazon region, in tropical Africa and North America, but performs relatively well in Europe and northern Eurasia. Other models also show consistent spatial patterns of good or poor performance, indicating that the weights do not capture randomly spaced grid-cells, but aggregated regions where the models tend to perform consistently in either direction with respect to the observations. 
 These maps of weights also show that there is no one single model that performs best everywhere, or contrastingly, one single model that performs worse everywhere. 
 
 \clearpage 
 
 \begin{figure}[htbp]
    \centering
-   \includegraphics[width=14cm]{Figures/CMIP6_FLUXCOM_weights.pdf} % requires the graphicx package
+   \includegraphics[width=14cm, trim={3cm, 1cm, 2.5cm, 1cm}, clip]{Figures/CMIP6_FLUXCOM_weights.pdf} % requires the graphicx package
    \caption{Weights $w$ of CMIP6 models for the variable NEP with respect to the X-BASE observational product. The diverging color palette is centered at a value of 1/8,  indicating whether a model contributes more or less than the equal weight of 1/8 from the $k= 8$ models. For each grid cell, the sum of the weights of the 8 models adds up to 1. }
    \label{fig:wFluxcom}
 \end{figure}
 
 \begin{figure}[htbp]
    \centering
-   \includegraphics[width=14cm]{Figures/CMIP6_CarboScope_weights.pdf} % requires the graphicx package
+   \includegraphics[width=14cm, trim={3cm, 1cm, 2.5cm, 1cm}, clip]{Figures/CMIP6_CarboScope_weights.pdf} % requires the graphicx package
    \caption{Weights $w$ of CMIP6 models for the variable NBP with respect to the Jena CarboScope observational product. The diverging color palette is centered at a value of 1/8,  indicating whether a model contributes more or less than the equal weight of 1/8 from the $k= 8$ models. For each grid cell, the sum of the weights of the 8 models adds up to 1. }
    \label{fig:wCarboScope}
 \end{figure}
@@ -423,14 +422,14 @@ Using this approach for obtaining ensemble averages of the variables NEP and NBP
 \begin{figure}[htbp]
    \centering
    \includegraphics[width=16cm]{Figures/CMIP6_FLUXCOM-X_D.pdf} % requires the graphicx package
-   \caption{Maps of differences with respect to minimum distances ($\mathcal{A}_m$) of CMIP6 models for the variable NEP and the X-BASE observational product. Small numbers in darker colors indicate smaller distances, representing a larger similarity between ESMs and X-BASE.}
+   \caption{Maps of differences $\Delta$ with respect to minimum distances ($\mathcal{A}_m$) of CMIP6 models for the variable NEP and the X-BASE observational product. Small numbers in darker colors indicate smaller distances, representing a larger similarity between ESMs and X-BASE.}
    \label{fig:Delta_NEP}
 \end{figure}
 
 \begin{figure}[htbp]
    \centering
    \includegraphics[width=16cm]{Figures/CMIP6_CarboScope_D.pdf} % requires the graphicx package
-   \caption{Maps of differences with respect to minimum distances ($\mathcal{A}_m$) of CMIP6 models for the variable NBP and the Jena CarboScope observational product. Small numbers in darker colors indicate smaller distances, representing a larger similarity between ESMs and CarboScope.}
+   \caption{Maps of differences $\Delta$ with respect to minimum distances ($\mathcal{A}_m$) of CMIP6 models for the variable NBP and the Jena CarboScope observational product. Small numbers in darker colors indicate smaller distances, representing a larger similarity between ESMs and CarboScope.}
    \label{fig:Delta_NBP}
 \end{figure}
 
