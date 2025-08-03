@@ -1,9 +1,15 @@
-\documentclass{standalone}
+\documentclass[tikz]{standalone}
 
-\usepackage{tikz}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+
+\definecolor{background}{HTML}{ece4d2}
 
 \begin{document}
 \begin{tikzpicture}
+
+\draw[fill=background, opacity=0.2] (-1,-5) rectangle (17,5);
+
 \draw[line width=1pt] (0,0) -- (15,0);
 \draw[dashed, gray] (5,0) -- (5,-4.5);
 \node at (0,0) [rectangle, draw, fill=gray!20] {$f(x)$};
