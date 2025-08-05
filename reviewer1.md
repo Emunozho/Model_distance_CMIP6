@@ -1,6 +1,5 @@
 # Reviewer 1
 
-
 *This is a nice study that proposes an information-theoretic rationale for weighting ESM outputs when computing multi-model average projections. The approach constructs weights from the divergence between each ESM’s output distribution and the observed-climate distribution, thereby rewarding models that align more closely with an observational product. The method is demonstrated on an ensemble of eight CMIP6 models to project net ecosystem exchange of CO₂ and net biome production, with weighting schemes calibrated against observational datasets.
 I found the study well written, with a clear and intuitive presentation of the information-theoretic background. These concepts are often missing from discussions of climate-model post-processing, and it is refreshing to see them used here. I also enjoyed learning about the connection between cross-entropy and AIC. I have a small quibble with calling the KL divergence a distance, but I will not press the point because the term likely helps build intuition.*
 
@@ -18,13 +17,15 @@ We modified this section by first providing a version of equation 5 that include
 
 *L105-110 : "but given the absence of any other method for obtaining a log-likelihood function of a parameterized ESM with respect to data" I would recommend nuancing this statement. There exists methods out there that allow to model loglikelihood functions (e.g. variational approaches). This doesn't diminish the proposed approach, since it might be the simplest first step to take, and in the Occam's razor philosophy, it makes sense being explored and worthy of a publication.*
 
-We modified this paragraph based on the reviewer's suggestion. It is true that models that use some parameterization schemees such as the 4D-var method and its variants, provide the possibility to obtain a likelihood function. However, these approaches are often used in one component of the model, and not necesarilly the fully-coupled ESM. Nevertheless, it may be possible to use results from these optimization approaches to add some information on the likeliihod function for some component of the ESM. 
+We modified this paragraph based on the reviewer's suggestion. It is true that models that use some parameterization schemees such as the 4D-var method and its variants, provide the possibility to obtain a likelihood function. However, these approaches are often used in one component of the model, and not necesarilly to parameterize a fully-coupled ESM. Nevertheless, it may be possible to use results from these optimization approaches to add some information on the likeliihod function for some component of the ESM. 
 
 *Eq 13 : Am I correct in saying that the weights end up being wi = 1/σ̂i / Σ1/σ̂i ? I think it would be useful to explicitly include this in the manuscript. The current presentation aims for a greater level of generality in its formalism, which is commendable, and could apply to any choice of distance metric A. However, for the particular choice made by the authors here, the expression of wi simplifies a lot and becomes very interpretable : we simply give more weight to model that have better least square agreement with the observational product.*
 
 We thank the reviewer for this important comment. Indeed, for our particular choice of the metric *A*, the weights are based on the inverse of the variance bewteen model ouput and observations. After a literature search, we found that inverse-variance weighting methods are common in meta-analysis studies and in the biomedical literature. Our results hint to an intriguing connection between inverse-variance weighting and minimization of KL divergence for the particular case in which the KL is approximated by a log-likelihood function for distributions of the exponential family. We added this important result to the new version of the article. 
 
 *Eq 15 : Is this supposed to be a definition of the uncertainty or the variance of x̄? If the latter, I don't understand how it is derived, if the former I would suggest not using x̄ as a subscript.*
+
+We modified and clarified the representation of variance and uncertainty. Given the previous result on the weights being identical to inverse-variance weighting, we used this result to provide a formal definition of variance. To represent uncertainties, we changed the equations to express them as predictions intervals given that this is a more appropriate way to express the uncertainties for predictions outside the time range where model output and observations overal.
  
 *With these points addressed, I believe the paper will make a valuable contribution and be ready for publication.*
  

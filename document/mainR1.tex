@@ -242,11 +242,11 @@ For a variable of interest $x$, the multi-model average is simply
 \bar{x} = \sum_{i=1}^k w_i \cdot x_i.
 \end{equation}
 
-To obtain the variance of the weighted average, we take advantage of the fact that the variance of an inverse-variance weighted average is equal to the inverse of the deviations \citep{Hartung2008, Bonamente2022, Kanters2022}
+To obtain the variance of the weighted average, we take advantage of the fact that the variance of an inverse-variance weighted average is equal to the inverse of the deviations \citep{Bonamente2022, Kanters2022, Rotondi2022}
 \begin{equation}
 \mathrm{Var}(\bar{x}) = \frac{1}{\sum_{i=1}^k 1/\hat{\sigma}_i^2}.
 \end{equation}
-This expression for the variance is consistent with the expression of the weights as in equation \eqref{eq:invvarw} where each individual estimate of the variance for each model is normalized by the sum of the estimate of the inverse deviation of all models.
+This expression for the variance is consistent with the expression of the weights as in equation \eqref{eq:invvarw} where each individual estimate of the inverse-variance for each model is normalized by their sum across all models. Furthermore, the values $1/\hat{\sigma}^2_i$ have a special interpretation from an information theoretic perspective, they are estimates of Fisher's information for distributions of the exponential family \citep{Rotondi2022}. They can be interpreted as the amount of information contributed by model $i$ to the weighted average, so the larger the dispersion of model output from the observations, the lower the contribution of the model to the weighted average. 
 
 %The estimate of uncertainty of this weighted average $\bar{x}$ would have to incorporate two components, a variance due to inter-model variability, and a variance of each model with respect to the available data $y$. Thus,
 %\begin{equation}
@@ -260,7 +260,7 @@ Most numerical output from an ESM is indexed along three coordinate axes, one fo
 \epsilon_{i-j, s, t}^2 =  (x_{i, s, t} - y_{j, s, t})^2.
 \end{equation}
 
-This equation can be used to produce maps of residuals between one single model $i$ and data-product $j$ for each point in time. An estimate of the variance over time, from the first time point $t_0$ until a final time point $t_f$ would be
+This equation can be used to produce maps of residuals between one single model $i$ and data-product $j$ for each point in time. An estimate of the mean squared deviation, from the first time point $t_0$ until a final time point $t_f$ would be
 
 \begin{equation}
 \sigma_{i-j, s}^2 = \frac{ \sum_{t=t_0}^{t_f} \epsilon_{i-j, s, t}^2 }{n},
@@ -289,12 +289,11 @@ This will result in a set of $k$ maps of weights that will be used to produce a 
 \begin{equation}
 \bar{x}_{j, s, t} = \sum_{i=1}^{k} w_{i-j, s} \cdot x_{i, s, t},
 \quad \mathrm{or} \quad
-\bar{x}_{j, s, t} = \frac{\sum_{i=1}^k  x_{i, s, t} /{\sigma^2_{i-j, s}}}{\sum_{i=1}^k 1/\sigma^2_{i-j, s}}
+\bar{x}_{j, s, t} = \frac{\sum_{i=1}^k  x_{i, s, t} /{\sigma^2_{i-j, s}}}{\sum_{i=1}^k 1/\sigma^2_{i-j, s}}.
 \end{equation}
-
 The variance of the weighted average is obtained as the sum of the inverse-deviation across models
 \begin{equation}
-\mathrm{Var}(\bar{x}_{j,s}) = \frac{1}{\sum_{i=1}^k 1/\sigma^2_{i-j, s}}
+\mathrm{Var}(\bar{x}_{j,s}) = \frac{1}{\sum_{i=1}^k 1/\sigma^2_{i-j, s}}.
 \end{equation}
 
 %The variance would be the sum of the variance due to variability with respect to data plus variability with respect to the weighted average
@@ -307,13 +306,23 @@ The variance of the weighted average is obtained as the sum of the inverse-devia
 %\sigma_{\bar{x}_{j, s, t}}^2 = \left( \sum_{i=1}^k w_{i-j, s} \sqrt{ (x_{i, s, t} - \bar{x}_{j, s, t})^2 + \sigma_{i-j, s}^2} \right)^2.
 %\end{equation}
 
-Notice that the weights and the variance of the weighted average are fixed over time (not time-dependent), but they can be used to obtain averages and uncertainties that include the time dimension. In particular, we define the uncertainty of the weighted average as the sum of two components, the deviation of each model prediction with respect to the weighted average, and the 
+Notice that the weights and the variance of the weighted average are fixed over time (not time-dependent), but they can be used to obtain averages and prediction uncertainties that include the time dimension, even for model output that spans beyond the time interval of the available observations. Thus, the weighted average with interval estimation at one standard deviation can be obtained as \citep[c.f.][]{Rotondi2022}
 \begin{equation}
-S^2(\bar{x}_{j,s,t}) = \sum_{i=1}^k w^2_{i-j, s}  (x_{i, s, t} - \bar{x}_{j, s, t})^2 + \mathrm{Var}(\bar{x}_{j,s}) .
+\bar{x}_{j, s, t} \pm \sqrt{ \mathrm{Var}(\bar{x}_{j,s}) + \sum_{i=1}^k w_{i-j, s}  (x_{i, s, t} - \bar{x}_{j, s, t})^2 }, % Based on eq. 11.83 of Rotondi et al. 2022. 
+%\quad \mathrm{or} \quad
+%\frac{\sum_{i=1}^k  x_{i, s, t} /{\sigma^2_{i-j, s}}}{\sum_{i=1}^k 1/\sigma^2_{i-j, s}} \pm \sqrt{ \frac{1}{\sum_{i=1}^k 1/\sigma^2_{i-j, s}} + \sum_{i=1}^k w_{i-j, s}  (x_{i, s, t} - \bar{x}_{j, s, t})^2 },
 \end{equation}
+with $t \in [t^-_0, f^+_f]$; i.e., with initial times starting before model output and data product overlap ($t^-_0 \leq t_0$) and/or final time after model output and data product overlap ($t^+_f \geq t_f$).
+In other words, we can take a smaller period of time when the observational product and the model output overlap to obtain the weights, and then use the weights to average across the entire time span of the available model output. 
 
-
-One consequence of this is that we can take a smaller period of time when the observational product and the model output overlap to obtain the weights, and then use the weights to average across the entire time span of the available model output. 
+As a reference, it is useful to obtain the average and the prediction intervals for the equal-weights scheme, where the average is given by 
+\begin{equation}
+\bar{x}_{s,t} = \frac{\sum_{i=1}^k x_{i,s,t}}{k},
+\end{equation}
+and the prediction interval can be expressed as
+\begin{equation}
+\bar{x}_{s,t} \pm \sqrt{ \frac{\sum_{i=1}^k \sigma^2_{i-j, s} + (x_{i,s,t} - \bar{x}_{s,t})^2 }{k}}
+\end{equation}
 
 \section{Ensemble average of land-atmosphere carbon exchange from CMIP6 models}
 To demonstrate the use of the procedure described above, we computed model weights and a multi-model ensemble average of the net flux between the land and the atmosphere using two different observational products as reference, X-BASE \citep{Nelson2024} and the Jena CarboScope \citep{Rodenbeck2005}. For the model ensemble, we used 9 models from the CMIP6 archive that report gross primary production and respiration fluxes as well as net biome production (Table \ref{tab:models}).
