@@ -244,9 +244,9 @@ For a variable of interest $x$, the multi-model average is simply
 
 To obtain the variance of the weighted average, we take advantage of the fact that the variance of an inverse-variance weighted average is equal to the inverse of the deviations \citep{Hartung2008, Bonamente2022, Kanters2022}
 \begin{equation}
-\mathrm{Var}(\bar{x}) = \frac{1}{\sum_{i=1}^k 1/\hat{\sigma}_i^2}
+\mathrm{Var}(\bar{x}) = \frac{1}{\sum_{i=1}^k 1/\hat{\sigma}_i^2}.
 \end{equation}
-This expression for the variance is consistent with the expression of the weights as in equation \eqref{eq:invvarw} where each individual estimate of the variance for each model is normalized by the sum of the estimate of the variance of all models.
+This expression for the variance is consistent with the expression of the weights as in equation \eqref{eq:invvarw} where each individual estimate of the variance for each model is normalized by the sum of the estimate of the inverse deviation of all models.
 
 %The estimate of uncertainty of this weighted average $\bar{x}$ would have to incorporate two components, a variance due to inter-model variability, and a variance of each model with respect to the available data $y$. Thus,
 %\begin{equation}
@@ -294,7 +294,7 @@ This will result in a set of $k$ maps of weights that will be used to produce a 
 
 The variance of the weighted average is obtained as the sum of the inverse-deviation across models
 \begin{equation}
-\mathrm{Var}(\bar{x}_{j,s,t}) = \frac{1}{\sum_{i=1}^k 1/\sigma^2_{i-j, s}}
+\mathrm{Var}(\bar{x}_{j,s}) = \frac{1}{\sum_{i=1}^k 1/\sigma^2_{i-j, s}}
 \end{equation}
 
 %The variance would be the sum of the variance due to variability with respect to data plus variability with respect to the weighted average
@@ -307,7 +307,13 @@ The variance of the weighted average is obtained as the sum of the inverse-devia
 %\sigma_{\bar{x}_{j, s, t}}^2 = \left( \sum_{i=1}^k w_{i-j, s} \sqrt{ (x_{i, s, t} - \bar{x}_{j, s, t})^2 + \sigma_{i-j, s}^2} \right)^2.
 %\end{equation}
 
-Notice that the weights are fixed over time (not time-dependent), but they can be used to obtain averages that include the time dimension. One consequence of this is that we can take a smaller period of time when the observational product and the model output overlap to obtain the weights, and then use the weights to average across the entire time span of the available model output. 
+Notice that the weights and the variance of the weighted average are fixed over time (not time-dependent), but they can be used to obtain averages and uncertainties that include the time dimension. In particular, we define the uncertainty of the weighted average as the sum of two components, the deviation of each model prediction with respect to the weighted average, and the 
+\begin{equation}
+S^2(\bar{x}_{j,s,t}) = \sum_{i=1}^k w^2_{i-j, s}  (x_{i, s, t} - \bar{x}_{j, s, t})^2 + \mathrm{Var}(\bar{x}_{j,s}) .
+\end{equation}
+
+
+One consequence of this is that we can take a smaller period of time when the observational product and the model output overlap to obtain the weights, and then use the weights to average across the entire time span of the available model output. 
 
 \section{Ensemble average of land-atmosphere carbon exchange from CMIP6 models}
 To demonstrate the use of the procedure described above, we computed model weights and a multi-model ensemble average of the net flux between the land and the atmosphere using two different observational products as reference, X-BASE \citep{Nelson2024} and the Jena CarboScope \citep{Rodenbeck2005}. For the model ensemble, we used 9 models from the CMIP6 archive that report gross primary production and respiration fluxes as well as net biome production (Table \ref{tab:models}).
