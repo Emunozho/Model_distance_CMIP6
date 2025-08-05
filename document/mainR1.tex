@@ -307,7 +307,7 @@ The variance of the weighted average is obtained as the sum of the inverse-devia
 %\end{equation}
 
 Notice that the weights and the variance of the weighted average are fixed over time (not time-dependent), but they can be used to obtain averages and prediction uncertainties that include the time dimension, even for model output that spans beyond the time interval of the available observations. Thus, the weighted average with interval estimation at one standard deviation can be obtained as \citep[c.f.][]{Rotondi2022}
-\begin{equation}
+\begin{equation} \label{eq:wapi}
 \bar{x}_{j, s, t} \pm \sqrt{ \mathrm{Var}(\bar{x}_{j,s}) + \sum_{i=1}^k w_{i-j, s}  (x_{i, s, t} - \bar{x}_{j, s, t})^2 }, % Based on eq. 11.83 of Rotondi et al. 2022. 
 %\quad \mathrm{or} \quad
 %\frac{\sum_{i=1}^k  x_{i, s, t} /{\sigma^2_{i-j, s}}}{\sum_{i=1}^k 1/\sigma^2_{i-j, s}} \pm \sqrt{ \frac{1}{\sum_{i=1}^k 1/\sigma^2_{i-j, s}} + \sum_{i=1}^k w_{i-j, s}  (x_{i, s, t} - \bar{x}_{j, s, t})^2 },
@@ -321,8 +321,14 @@ As a reference, it is useful to obtain the average and the prediction intervals 
 \end{equation}
 and the prediction interval can be expressed as
 \begin{equation}
-\bar{x}_{s,t} \pm \sqrt{ \frac{\sum_{i=1}^k \sigma^2_{i-j, s} + (x_{i,s,t} - \bar{x}_{s,t})^2 }{k}}
+\bar{x}_{s,t} \pm \sqrt{ \frac{ (x_{i,s,t} - \bar{x}_{s,t})^2 }{k}}.
 \end{equation}
+Notice that the prediction intervals for this equal-weighting case do not include a variance term with respect to an observational product. This simply because it is irrelevant to include this source of variation when the averaging does not take into consideration the existence of any reference observation. However, for comparing the prediction intervals between the equal-weights and the weighted average, the variance term in equation \eqref{eq:wapi}  adds an undesired source of variability. To make comparisons on equal footing, we thus use a modified version of the prediction intervals for the weighted average as
+\begin{equation} \label{eq:wapi}
+\bar{x}_{j, s, t} \pm \sqrt{ \sum_{i=1}^k w_{i-j, s}  (x_{i, s, t} - \bar{x}_{j, s, t})^2 }, 
+\end{equation}
+which is identical to the expression used in other model weighting approaches previously proposed with climate model ensambles \citep[][p. 212]{Sain2025}.
+
 
 \section{Ensemble average of land-atmosphere carbon exchange from CMIP6 models}
 To demonstrate the use of the procedure described above, we computed model weights and a multi-model ensemble average of the net flux between the land and the atmosphere using two different observational products as reference, X-BASE \citep{Nelson2024} and the Jena CarboScope \citep{Rodenbeck2005}. For the model ensemble, we used 9 models from the CMIP6 archive that report gross primary production and respiration fluxes as well as net biome production (Table \ref{tab:models}).
