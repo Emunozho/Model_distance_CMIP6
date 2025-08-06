@@ -1,5 +1,3 @@
-# Reviewer 2
-
 *Overall, the manuscript provides a solution for an important task – averaging of ESM ensembles -
 that is both well-grounded in theory and easy to apply. The (sometimes strong) assumptions are
 clearly stated, and the method overall is well presented in terms of derivation and examples.*
