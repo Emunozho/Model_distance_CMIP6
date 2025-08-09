@@ -292,7 +292,7 @@ This will result in a set of $k$ maps of weights that will be used to produce a 
 \bar{x}_{j, s, t} = \frac{\sum_{i=1}^k  x_{i, s, t} /{\sigma^2_{i-j, s}}}{\sum_{i=1}^k 1/\sigma^2_{i-j, s}}.
 \end{equation}
 The variance of the weighted average is obtained as the sum of the inverse-deviation across models
-\begin{equation}
+\begin{equation}\label{eq:avevar}
 \mathrm{Var}(\bar{x}_{j,s}) = \frac{1}{\sum_{i=1}^k 1/\sigma^2_{i-j, s}}.
 \end{equation}
 
@@ -324,7 +324,7 @@ and the prediction interval can be expressed as
 \bar{x}_{s,t} \pm \sqrt{ \frac{ (x_{i,s,t} - \bar{x}_{s,t})^2 }{k}}.
 \end{equation}
 Notice that the prediction intervals for this equal-weighting case do not include a variance term with respect to an observational product. This is simply because it is irrelevant to include this source of variation when the averaging does not take into consideration the existence of any reference observation. However, for comparing the prediction intervals between the equal-weights and the weighted average, the variance $ \mathrm{Var}(\bar{x}_{j,s})$ term in equation \eqref{eq:wapi}  adds an undesired source of variability. To make comparisons on equal footing, we thus use a modified version of the prediction intervals for the weighted average as
-\begin{equation} \label{eq:wapi}
+\begin{equation} \label{eq:wapic2}
 \bar{x}_{j, s, t} \pm \sqrt{ \sum_{i=1}^k w_{i-j, s}  (x_{i, s, t} - \bar{x}_{j, s, t})^2 }, 
 \end{equation}
 which is identical to the expression used in other model weighting approaches previously proposed with climate model ensambles \citep[][p. 212]{Sain2025}.
@@ -390,22 +390,22 @@ These maps of weights also show that there is no one single model that performs 
 \clearpage
 
 The values of weights for each grid cell were combined with the predictions of the variable of interest for each model to produce weighted averages at the grid cell level for each time step, and then summed across grid cells to obtain time series (Figure~\ref{fig:averages}).
-The obtained results show that the weighted average of NEP  is consistently lower than the arithmetic average, mostly because the influence of models that make predictions with values much higher than the observational product have much less weight in the weighted average (Figure~\ref{fig:averages}a). In fact, the models that predict the highest values of NEP, namely NOAA-GFDL-ESM4 and ACESS-ESM1-5, make predictions well outside the uncertainty range obtained for the weighted average, indicating the small contribution that these models make to the obtained average. 
+The obtained results show that the weighted average of NEP  is consistently lower than the arithmetic average (38.2\%), mostly because the influence of models that make predictions with values much higher than the observational product have much less weight in the weighted average (Figure~\ref{fig:averages}a). In fact, the models that predict the highest values of NEP, namely NOAA-GFDL-ESM4 and ACESS-ESM1-5, make predictions well outside the uncertainty range obtained for the weighted average, indicating the small contribution that these models make to the obtained average. 
 
-For the variable NBP, the arithmetic and the weighted average are relatively close to each other for the entire simulation period (Figure~\ref{fig:averages}b). In this case, most models make predictions close to each other and, therefore, they contribute more evenly to the weighted average. Nevertheless, the obtained uncertainty range is lower for the weighted average, indicating that those models closer to the observational product have more weight in terms of both the average and its variance, and therefore help to reduce overall uncertainty in the predictions. 
+For the variable NBP, the arithmetic and the weighted average are relatively close to each other for the entire simulation period (Figure~\ref{fig:averages}b). In this case, most models make predictions close to each other and, therefore, they contribute more evenly to the weighted average. Nevertheless, the obtained uncertainty range is lower for the weighted average (39.1\%), indicating that those models closer to the observational product have more weight in terms of both the average and its variance, and therefore help to reduce overall uncertainty in the predictions. 
 
 %This is to be expected because the computed weight tends to be very different for the different models and for specific geographic regions. In fact, we believe this is a major strength of the proposed approach, because the weights are not applied uniformly to all grid cells of a specific model, but according to how these grid cells perform with respect to the observations. 
 
 \begin{figure}[t]
    \centering
    \includegraphics[width=14cm]{Figures/Time_series_NXP_c1.pdf} % requires the graphicx package
-   \caption{Annual time series of (a) NEP and (b) NBP from individual CMIP6 ESMs obtained as arithmetic averages (purple lines) and the weighted averages using the method proposed here (black lines). Uncertainty ranges are expressed as the average value $\pm$ the value of $\sigma$ including only the first term from equation \ref{eq:sigma2}. For the arithmetic average, the weights for the computation of uncertainty are $w_i = 1/8$.}
+   \caption{Annual time series of (a) NEP and (b) NBP from individual CMIP6 ESMs obtained as arithmetic averages (purple lines) and the weighted averages using the method proposed here (black lines). Uncertainty ranges are expressed as the average value $\pm$ the value of $\sigma$ including only the second term from equation \ref{eq:wapi}. For the arithmetic average, the weights for the computation of uncertainty are $w_i = 1/8$.}
    \label{fig:averages}
 \end{figure}
 
 For both variables, NEP and NBP, the estimate of uncertainty with our proposed approach is also significantly lower than the uncertainty based on equal weights (Figures~\ref{fig:averages} and \ref{fig:averagesFullUncertainty}). We obtained a much lower level of uncertainty for the weighted average because the method applies probabilities or strengths of belief to the different models and grid cells, and therefore this averaging procedure increases confidence in the inferred multi-model average. 
 
-However, the prediction intervals in Figure~\ref{fig:averages} do not include the inter-model variance term $ \mathrm{Var}(\bar{x}_{j,s})$ from equation \ref{eq:wapi}; i.e., only the deviation of the models with respect to the averages excluding the deviation of the models from the observational product. When combining both sources of uncertainty, the overall variance is much larger for the weighted average (Figure~\ref{fig:averagesFullUncertainty}). For the arithmetic average, this source of variation is generally not included because it is irrelevant in this context to compare the models with observations, but in case this source of uncertainty would be included, the prediction intervals of the arithmetic average would be much larger than for the weighted average. 
+However, the prediction intervals in Figure~\ref{fig:averages} do not include the inter-model variance term $ \mathrm{Var}(\bar{x}_{j,s})$ from equation \ref{eq:wapi} (Figure~\ref{eq:avevar}); i.e., only the deviation of the models with respect to the averages excluding the deviation of the models from the observational product. When combining both sources of uncertainty, the overall variance is much larger for the weighted average (Figure~\ref{fig:averagesFullUncertainty}). For the arithmetic average, this source of variation is generally not included because it is irrelevant in this context to compare the models with observations, but in case this source of uncertainty would be included, the prediction intervals of the arithmetic average would be much larger than for the weighted average. 
 
 It is also important to note that even though the observational products are only available for a short period of time, we used the obtained weights for the entire period of the simulations of the ESMs under the assumption that a model that performs well during the period in which observations are available, should be able to perform well for other periods. This assumption is obviously questionable, and probably inadequate for periods of time much beyond the time range of available data. However, we still believe that this assumption is better than to assume that all models are equally reliable for all periods of time as it is implicitly assumed with an equal weight approach. 
 
@@ -468,8 +468,16 @@ Using this approach for obtaining ensemble averages of the variables NEP and NBP
 
 \begin{figure}[htbp]
    \centering
-   \includegraphics[width=14cm]{Figures/Time_series_NXP.pdf} % requires the graphicx package
-   \caption{Annual time series of (a) NEP and (b) NBP from individual CMIP6 ESMs obtained as arithmetic averages (purple lines) and the weighted averages using the method proposed here (black lines). Uncertainty ranges are expressed as the average value $\pm$ the full value of $\sigma$ from equation \ref{eq:sigma2}. For the arithmetic average, the weights for the computation of uncertainty are $w_i = 1/8$.}
+   \includegraphics[width=14cm]{Figures/Var.pdf} % requires the graphicx package
+   \caption{Variance of the weighted average of (a) NEP and (b) NBP from CMIP6 ESMs calculated from from equation \ref{eq:avevar}.}
+   \label{fig:variance_average}
+\end{figure}
+
+
+\begin{figure}[htbp]
+   \centering
+   \includegraphics[width=14cm]{Figures/Time_series_NXP_vf.pdf} % requires the graphicx package
+   \caption{Annual time series of (a) NEP and (b) NBP from individual CMIP6 ESMs obtained as the weighted averages using the method proposed here (black lines). Uncertainty ranges are expressed as the average value $\pm$ the full value of $\sigma$ from equation \ref{eq:wapi}.}
    \label{fig:averagesFullUncertainty}
 \end{figure}
 
