@@ -1,7 +1,7 @@
 %% Copernicus Publications Manuscript Preparation Template for LaTeX Submissions
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL main.tex     Tue May 20 08:49:53 2025
-%DIF ADD mainR1.tex   Sun Aug 10 10:21:11 2025
+%DIF DEL main.tex     Mon May 19 18:49:00 2025
+%DIF ADD mainR1.tex   Sun Aug 10 18:33:16 2025
 %% ---------------------------------
 %% This template should be used for copernicus.cls
 %% The class file and some style files are bundled in the Copernicus Latex Package, which can be downloaded from the different journal webpages.
@@ -576,7 +576,8 @@ Using this approach for obtaining ensemble averages of the variables NEP and NBP
    \centering
    \DIFdelbeginFL %DIFDELCMD < \includegraphics[width=14cm]{Figures/Time_series_NXP.pdf} %%%
 \DIFdelendFL \DIFaddbeginFL \includegraphics[width=14cm]{Figures/Var.pdf} \DIFaddendFL % requires the graphicx package
-   \caption{\DIFdelbeginFL \DIFdelFL{Annual time series }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{Variance }\DIFaddendFL of \DIFaddbeginFL \DIFaddFL{the weighted average of  }\DIFaddendFL (a) NEP \DIFaddbeginFL \DIFaddFL{from CMIP6 ESMs }\DIFaddendFL and \DIFaddbeginFL \DIFaddFL{X-BASE, and }\DIFaddendFL (b) NBP from \DIFdelbeginFL \DIFdelFL{individual }\DIFdelendFL CMIP6 ESMs \DIFdelbeginFL \DIFdelFL{obtained as arithmetic averages (purple lines) }\DIFdelendFL and the \DIFdelbeginFL \DIFdelFL{weighted averages using the method proposed here (black lines). Uncertainty ranges are expressed as the average value $\pm$ the full value of $\sigma$ from }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{Jena CarboScope product calculated with }\DIFaddendFL equation \DIFdelbeginFL \DIFdelFL{\ref{eq:sigma2}}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{\eqref{eq:avevar}}\DIFaddendFL .\DIFdelbeginFL \DIFdelFL{For the arithmetic average, the weights for the computation of uncertainty are $w_i = 1/8$.}\DIFdelendFL }
+   \caption{\DIFdelbeginFL \DIFdelFL{Annual time series }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{Variance }\DIFaddendFL of \DIFaddbeginFL \DIFaddFL{the weighted average from the CMIP6 ESMs outputs of }\DIFaddendFL (a) NEP \DIFaddbeginFL \DIFaddFL{using X-BASE }\DIFaddendFL and (b) NBP \DIFdelbeginFL \DIFdelFL{from individual CMIP6 ESMs obtained as arithmetic averages (purple lines) and the weighted averages }\DIFdelendFL using \DIFdelbeginFL \DIFdelFL{the method proposed here (black lines)}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{Jena CarboScope}\DIFaddendFL .
+\DIFdelbeginFL \DIFdelFL{Uncertainty ranges are expressed as the average value $\pm$ the full value of $\sigma$ }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{The variance is calculated }\DIFaddendFL from equation\DIFdelbeginFL \DIFdelFL{\ref{eq:sigma2}}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{~\eqref{eq:avevar}}\DIFaddendFL .\DIFdelbeginFL \DIFdelFL{For the arithmetic average, the weights for the computation of uncertainty are $w_i = 1/8$.}\DIFdelendFL }
    \DIFaddbeginFL \label{fig:variance_average}
 \end{figure}
 

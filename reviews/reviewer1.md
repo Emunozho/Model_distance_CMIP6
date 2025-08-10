@@ -11,7 +11,7 @@ The literature on multi-model ensamble averages is relatively rich, and there ar
 *In addition, I have a minor comments/questions that I hope the authors will be able to address before this is considered for publication.*
 *L95-100 : could the authors expand on why the approximation dismissing K is appropriate? I know this is discussed later in the manuscript as a limitation of the proposed method, but I think it would be useful to also have an argument at this point on why that's a reasonable approximation to start with.*
 
-We modified this section by first providing a version of equation 5 that includes $K$, followed by the approximation version without $K$. We explain the reason for not included $K$ here following the same arguments provided in section 5. 
+We modified this section by first providing a version of equation 5 that includes $K$, followed by the approximation version without $K$. We explain the reason for not including $K$ here following the same arguments provided in section 5. 
 
 *L105-110 : "but given the absence of any other method for obtaining a log-likelihood function of a parameterized ESM with respect to data" I would recommend nuancing this statement. There exists methods out there that allow to model loglikelihood functions (e.g. variational approaches). This doesn't diminish the proposed approach, since it might be the simplest first step to take, and in the Occam's razor philosophy, it makes sense being explored and worthy of a publication.*
 
