@@ -34,9 +34,9 @@ from observations) estimate that the simple average. I am quite sure this will b
 but please add and discuss the related numbers.*
 
 From the theoretical point of view, the inverse-variance weighted average is the most efficient
-estimator of the mean under the Maximum Likelihood estimation theory. The numerical results
-support this claim showing a much reduced variance in comparison to the weighted average, and
-narrower prediction intervals.  
+estimator of the mean under the maximum likelihood estimation theory. The numerical results
+support this claim showing a much reduced variance (32% reduction) in comparison to the weighted average, and
+narrower prediction intervals.  We added this infomration to section 4. 
 
 *My overall recommendation is to publish after these minor points have been suitably addressed.*
 
