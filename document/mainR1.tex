@@ -214,7 +214,7 @@ i.e., they are estimates of the relative difference between the expected distanc
 
 \begin{figure}[ht]
    \centering
-   \includegraphics[width=14cm]{Figures/distances.pdf} % requires the graphicx package
+   \includegraphics[width=14cm]{Figure1.pdf} % requires the graphicx package
    \caption{Conceptual representation of the approximation of the Kullback-Liebler distance between models and full reality $I(f, g_i)$ by the proposed metric $\mathcal{A}_i$, and relative ranking of models according to the metric $\Delta_i$. Models $g_i$ predict the value of variable $x$ based on a configuration of parameters and initial conditions encoded in the vector $\hat{\theta}$, which is based on some a priori data $y$. In this example, the model with the closest distance to the reference data is $g_1$, so $\mathcal{A}_1 = \mathcal{A}_m$. The relative ranking among models is defined as $\Delta_i = \mathcal{A}_i - \mathcal{A}_m$. Notice that the distance from full reality and data is always constant as well as the distance from full reality to model $g_1$. Therefore, the relative ranking of the models is similar to ranking models based on their Kullback-Liebler distance to full reality.}
    \label{fig:concept}
 \end{figure}
@@ -247,12 +247,6 @@ To obtain the variance of the weighted average, we take advantage of the fact th
 \mathrm{Var}(\bar{x}) = \frac{1}{\sum_{i=1}^k 1/\hat{\sigma}_i^2}.
 \end{equation}
 This expression for the variance is consistent with the expression of the weights as in equation \eqref{eq:invvarw} where each individual estimate of the inverse-variance for each model is normalized by their sum across all models. Furthermore, the values $1/\hat{\sigma}^2_i$ have a special interpretation from an information theoretic perspective, they are estimates of Fisher's information for distributions of the exponential family \citep{Rotondi2022}. They can be interpreted as the amount of information contributed by model $i$ to the weighted average, so the larger the dispersion of model output from the observations, the lower the contribution of the model to the weighted average. 
-
-%The estimate of uncertainty of this weighted average $\bar{x}$ would have to incorporate two components, a variance due to inter-model variability, and a variance of each model with respect to the available data $y$. Thus,
-%\begin{equation}
-%\sigma_{\bar{x}}^2 =  \sum_{i=1}^k w^2_i \left[ (x_i -\bar{x})^2 + (x_i - y)^2 \right] .
-%\end{equation}
-%A note of caution. The last term of this equation needs to be specified more precisely due to the space-time coordinate indexing of the data and the models. This aspect will be clarified in the next section. 
 
 \section{Implementation with ESM output and gridded data products}
 Most numerical output from an ESM is indexed along three coordinate axes, one for time, and two for spatial coordinates. Because the spatial coordinates can be simplified to just one coordinate if we know the mapping from a one-dimensional index to a two-dimensional coordinate space, we define $s$ as the spatial coordinate, and $t$ as the time coordinate. We also define $i$ as the indexing for the models in the set of all considered ESMs. Given these definitions, we consider a model variable $x$ available from one single model for one single grid cell at one point in time as $x_{i, s, t}$. Similarly, we assume that we have a comparable variable derived from observations $y$ from a specific data product $j$ for one grid cell $s$ and one time point $t$ and denote it by $y_{j, s, t}$. The residual for each grid cell and each time point between model $i$ and data product $j$ is given by
@@ -294,16 +288,6 @@ The variance of the weighted average is obtained as the sum of the inverse-devia
 \begin{equation}\label{eq:avevar}
 \mathrm{Var}(\bar{x}_{j,s}) = \frac{1}{\sum_{i=1}^k 1/\sigma^2_{i-j, s}}.
 \end{equation}
-
-%The variance would be the sum of the variance due to variability with respect to data plus variability with respect to the weighted average
-%\begin{equation} \label{eq:sigma2}
-%\sigma_{\bar{x}_{j, s, t}}^2 =  \sum_{i=1}^k w^2_{i-j, s}  \left[  (x_{i, s, t} - \bar{x}_{j, s, t})^2 + \sigma_{i-j, s}^2 \right].
-%\end{equation}
-%In some cases, it is useful to analyze the variance due to deviation from the average, i.e., only the first term of equation \ref{eq:sigma2}.
-
-%\begin{equation}
-%\sigma_{\bar{x}_{j, s, t}}^2 = \left( \sum_{i=1}^k w_{i-j, s} \sqrt{ (x_{i, s, t} - \bar{x}_{j, s, t})^2 + \sigma_{i-j, s}^2} \right)^2.
-%\end{equation}
 
 Notice that the weights and the variance of the weighted average are fixed over time (not time-dependent), but they can be used to obtain averages and prediction uncertainties that include the time dimension, even for model output that spans beyond the time interval of the available observations. Thus, the weighted average with interval estimation at one standard deviation can be obtained as \citep[c.f.][]{Rotondi2022}
 \begin{equation} \label{eq:wapi}
@@ -359,12 +343,11 @@ For ranking model performance a relative measure such as $\Delta$ (Figures~\ref{
 
 \begin{figure}[t]
    \centering
-   \includegraphics[width=14cm]{Figures/Amin.pdf} % requires the graphicx package
+   \includegraphics[width=14cm]{Figure2.pdf} % requires the graphicx package
    \caption{Minimum distances ($\mathcal{A}_m$) between (a) NEP from CMIP6 ESMs and X-BASE, and (b) NBP from CMIP6 ESMs and the Jena CarboScope product. More negative values in darker colors indicate smaller distances (values in logarithmic scale), representing larger similarity between the ESMs and the observational products. Note that the numerical scales between a and b are different.}
    \label{fig:Am}
 \end{figure}
 
-%\textcolor{blue}{The considerable difference between the NEP and the NBP reference is also evident for the weights of each model (Figures~\ref{fig:wFluxcom} and \ref{fig:wCarboScope}), demonstrating that model weights may change substantially depending on the observational product being used as a reference.}
 The weights obtained for each model provide a relative ranking of the models with respect to their distance to the observational product, and serve as a suitable metric to assess model performance. 
 The values obtained differed considerably between the NEP and the NBP reference (Figures~\ref{fig:wFluxcom} and \ref{fig:wCarboScope}), which shows that model weights may change substantially depending on the observational product being used as a reference.
 Furthermore, for each model, it is clear that there are regions that perform better or worse than others in comparison to the observational product. For example, the MPI-ESM1-2-LR model performs consistently poorly in the Amazon region, in tropical Africa and North America, but performs relatively well in Europe and northern Eurasia. Other models also show consistent spatial patterns of good or poor performance, indicating that the weights do not capture randomly spaced grid-cells, but aggregated regions where the models tend to perform consistently in either direction with respect to the observations. 
@@ -374,14 +357,14 @@ These maps of weights also show that there is no one single model that performs 
 
 \begin{figure}[htbp]
    \centering
-   \includegraphics[width=14cm, trim={3cm, 1cm, 2.5cm, 1cm}, clip]{Figures/CMIP6_FLUXCOM_weights.pdf} % requires the graphicx package
+   \includegraphics[width=14cm, trim={3cm, 1cm, 2.5cm, 1cm}, clip]{Figure3.pdf} % requires the graphicx package
    \caption{Weights $w$ of CMIP6 models for the variable NEP with respect to the X-BASE observational product. The diverging color palette is centered at a value of 1/8,  indicating whether a model contributes more or less than the equal weight of 1/8 from the $k= 8$ models. For each grid cell, the sum of the weights of the 8 models adds up to 1. }
    \label{fig:wFluxcom}
 \end{figure}
 
 \begin{figure}[htbp]
    \centering
-   \includegraphics[width=14cm, trim={3cm, 1cm, 2.5cm, 1cm}, clip]{Figures/CMIP6_CarboScope_weights.pdf} % requires the graphicx package
+   \includegraphics[width=14cm, trim={3cm, 1cm, 2.5cm, 1cm}, clip]{Figure4.pdf} % requires the graphicx package
    \caption{Weights $w$ of CMIP6 models for the variable NBP with respect to the Jena CarboScope observational product. The diverging color palette is centered at a value of 1/8,  indicating whether a model contributes more or less than the equal weight of 1/8 from the $k= 8$ models. For each grid cell, the sum of the weights of the 8 models adds up to 1. }
    \label{fig:wCarboScope}
 \end{figure}
@@ -393,12 +376,10 @@ The obtained results show that the weighted average of NEP  is consistently lowe
 
 For the variable NBP, the arithmetic and the weighted average are relatively close to each other for the entire simulation period (Figure~\ref{fig:averages}b). In this case, most models make predictions close to each other and, therefore, they contribute more evenly to the weighted average. Nevertheless, the obtained uncertainty range is lower for the weighted average (39.1\%), indicating that those models closer to the observational product have more weight in terms of both the average and its variance, and therefore help to reduce overall uncertainty in the predictions. 
 
-%This is to be expected because the computed weight tends to be very different for the different models and for specific geographic regions. In fact, we believe this is a major strength of the proposed approach, because the weights are not applied uniformly to all grid cells of a specific model, but according to how these grid cells perform with respect to the observations. 
-
 \begin{figure}[t]
    \centering
-   \includegraphics[width=14cm]{Figures/Time_series_NXP_c1.pdf} % requires the graphicx package
-   \caption{Annual time series of (a) NEP and (b) NBP from individual CMIP6 ESMs obtained as arithmetic averages (purple lines) and the weighted averages using the method proposed here (black lines). Uncertainty ranges are expressed as the average value $\pm$ the value of $\sigma$ including only the second term from equation \ref{eq:wapi}. For the arithmetic average, the weights for the computation of uncertainty are $w_i = 1/8$.}
+   \includegraphics[width=14cm]{Figure5.pdf} % requires the graphicx package
+   \caption{Annual time series of (a) NEP and (b) NBP from individual CMIP6 ESMs obtained as arithmetic averages (purple lines) and the weighted averages using the method proposed here (black lines). Uncertainty ranges are calculated according to equation \ref{eq:wapic2}. For the arithmetic average, the weights for the computation of uncertainty are $w_i = 1/8$.}
    \label{fig:averages}
 \end{figure}
 
@@ -424,13 +405,13 @@ Second, other authors have raised concerns over the issue of model independence 
 
 \begin{figure}[t]
    \centering
-   \includegraphics[width=14cm]{Figures/Corr_CESM_NorESM.pdf} % requires the graphicx package
+   \includegraphics[width=14cm]{Figure6.pdf} % requires the graphicx package
    \caption{Pearson correlation coefficients $\rho$ of variable NBP between CESM2 ($m1$) and NorESM-LM ($m2$). These two models share the same land model (CLM5), but due to differences in other components of the model, the predictions of NBP are not similar and often correlate with values of $\rho < 0.9$.}
    \label{fig:corr}
 \end{figure}
 
 
-It is also important to note that, in the ideal case in which we would have a perfect understanding of Earth system processes, all mathematical models representing these processes would converge to the same predictions. Therefore, it is still debatable whether models that agree with each other because they have a common representation of underlying processes should be penalized. For this reason, we refrain from introducing a penalization term to our computation of weights, but we acknowledge that this is an issue that deserves more theoretical work. In particular, from an information-theoretic point of view, the problem should be a dressed in terms of the mutual information shared among models \citep{Majhi2023}. 
+It is also important to note that, in the ideal case in which we would have a perfect understanding of Earth system processes, all mathematical models representing these processes would converge to the same predictions. Therefore, it is still debatable whether models that agree with each other because they have a common representation of underlying processes should be penalized. For this reason, we refrain from introducing a penalization term to our computation of weights, but we acknowledge that this is an issue that deserves more theoretical work. In particular, from an information-theoretic point of view, the problem should be adressed in terms of the mutual information shared among models \citep{Majhi2023}. 
 
 A third issue that deserves more attention is the lack of penalization for model complexity in the approach we propose. The original work proposed by H. Akaike is very well known for the introduction of a penalization term due to the number of parameters in the model, a penalization well supported by mathematical theory and philosophy of science \citep{Akaike1974, Akaike1981}. However, the scientific trend in ESM development is the addition of increased levels of detail supported by increased computational power \citep{Held2005, Held2014}. We do not have information on the total number of parameters used in each ESM, but we believe it should be on the order of $10^2$ -- $10^3$. Therefore, adding a penalization term as in the traditional form in the computation of AIC would lead to differences among models that are dominated by differences in their number of parameters, obscuring differences in model distances with respect to observations. But ignoring the penalization due to model complexity, as we do in our approach, implies that we continue ignoring the tension between model complexity and understanding, and focus exclusively on model performance. We believe this a topic that deserves much more theoretical attention and should be addressed in future improvements on the approach we propose. 
 
@@ -450,7 +431,7 @@ Using this approach for obtaining ensemble averages of the variables NEP and NBP
 %\dataavailability{TEXT} %% use this section when having only data sets available
 
 
-\codedataavailability{The exact version of the code used to produce the results used in this article is archived on repository under DOI: 10.5281/zenodo.15167573 \citep{Sierra2025}, as well as the model weights necessary to compute model averages \citep{Sierra2025}.}
+\codedataavailability{The exact version of the code used to produce the results used in this article is archived on repository under DOI: 10.5281/zenodo.16790123 \citep{Sierra2025}, as well as the model weights necessary to compute model averages \citep{Sierra2025}.}
 
 %All code to reproduce the results is properly archived at Zenodo \citep[][DOI: 10.5281/zenodo.15167573]{Sierra2025}. Original data from CMIP6 model output was obtained from the German Climate Computing Center (DKRZ), openly available at \url{https://cmip-data-pool.dkrz.de/}.} %% use this section when having data sets and software code available
 
@@ -467,7 +448,7 @@ Using this approach for obtaining ensemble averages of the variables NEP and NBP
 
 \begin{figure}[htbp]
    \centering
-   \includegraphics[width=14cm]{Figures/Var.pdf} % requires the graphicx package
+   \includegraphics[width=14cm]{FigureA1.pdf} % requires the graphicx package
    \caption{Variance of the weighted average from the CMIP6 ESMs outputs of (a) NEP using X-BASE and (b) NBP using Jena CarboScope.
 The variance is calculated from equation~\eqref{eq:avevar}.}
    \label{fig:variance_average}
@@ -476,21 +457,21 @@ The variance is calculated from equation~\eqref{eq:avevar}.}
 
 \begin{figure}[htbp]
    \centering
-   \includegraphics[width=14cm]{Figures/Time_series_NXP_vf.pdf} % requires the graphicx package
+   \includegraphics[width=14cm]{FigureA2.pdf} % requires the graphicx package
    \caption{Annual time series of  (a) NEP from CMIP6 ESMs and X-BASE, and (b) NBP from CMIP6 ESMs and the Jena CarboScope product obtained as the weighted averages using the method proposed here (black lines). Uncertainty ranges are expressed as the average value $\pm$ the full value of prediction uncertainty from equation \eqref{eq:wapi}.}
    \label{fig:averagesFullUncertainty}
 \end{figure}
 
 \begin{figure}[htbp]
    \centering
-   \includegraphics[width=16cm]{Figures/CMIP6_FLUXCOM-X_D.pdf} % requires the graphicx package
+   \includegraphics[width=16cm]{FigureA3.pdf} % requires the graphicx package
    \caption{Maps of differences $\Delta$ with respect to minimum distances ($\mathcal{A}_m$) of CMIP6 models for the variable NEP and the X-BASE observational product. Small numbers in darker colors indicate smaller distances, representing a larger similarity between ESMs and X-BASE.}
    \label{fig:Delta_NEP}
 \end{figure}
 
 \begin{figure}[htbp]
    \centering
-   \includegraphics[width=16cm]{Figures/CMIP6_CarboScope_D.pdf} % requires the graphicx package
+   \includegraphics[width=16cm]{FigureA4.pdf} % requires the graphicx package
    \caption{Maps of differences $\Delta$ with respect to minimum distances ($\mathcal{A}_m$) of CMIP6 models for the variable NBP and the Jena CarboScope observational product. Small numbers in darker colors indicate smaller distances, representing a larger similarity between ESMs and CarboScope.}
    \label{fig:Delta_NBP}
 \end{figure}
